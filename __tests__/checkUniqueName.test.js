@@ -7,7 +7,15 @@ describe('utils library test suite', () => {
 })
 
 describe("name of planet", function(){
-    it("has only caps", function(){
+    it("has not only caps", function(){
         expect(checkUniqueName("test")).toBe(false);
     })
 })
+
+
+describe("name of planet", function() {
+    it("has not only caps", function(){
+        expect(checkUniqueName('TeST')).toBe(false);
+    });
+});
+
