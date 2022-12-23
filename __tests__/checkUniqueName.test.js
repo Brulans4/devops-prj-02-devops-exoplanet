@@ -19,3 +19,8 @@ describe("name of planet", function() {
     });
 });
 
+describe("name of planet", function() {
+    it("has only caps", function(){
+        expect(checkUniqueName('TEST')).toBe(true);
+    });
+});
