@@ -1,5 +1,7 @@
 module.exports.checkUniqueName = (uniqueName) => {
-  const regex = /[\W+]/g;
+  // regex to only accept . and -
+
+  const regex = /[^-.\w]/g;
   const found = uniqueName.match(regex);
   console.log(found);
   if (found === null || found.length === 0) return true;
