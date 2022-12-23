@@ -5,9 +5,16 @@ const Exoplanet = require('../models/Exoplanet.js');
 
 const Utils = require('../utils/utils.js');
 
+let addError = false;
+
 /* GET exoplanets index. */
 router.get('/', (req, res, next) => {
-  res.render('exoplanets/index', { exoplanetsTable: Exoplanet.list() });
+  let error = false;
+  if (addError) {
+    error = true;
+    addError = false;
+  }
+  res.render('exoplanets/index', { exoplanetsTable: Exoplanet.list(), error });
 });
 
 /* GET exoplanets index. */
@@ -18,13 +25,15 @@ router.get('/test', (req, res) => {
 /* POST add exoplanet. */
 router.post('/add', (req, res, next) => {
   console.log('POST ADD EXOPLANET' + req.body.uniqueNameExoplanet);
-  const ok = Utils.checkUniqueName(req.body.uniqueNameExoplanet);
-  if (ok) {
+  const correct = Utils.checkUniqueName(req.body.uniqueNameExoplanet);
+  if (correct) {
     Exoplanet.save({
       uniqueName: req.body.uniqueNameExoplanet,
       hClass: req.body.hClassExoplanet,
       discoveryYear: req.body.discoveryYearExoplanet
     });
+  } else {
+    addError = true;
   }
   res.redirect('/exoplanets');
 });
