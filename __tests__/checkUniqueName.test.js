@@ -5,3 +5,9 @@ describe('utils library test suite', () => {
         expect(checkUniqueName('oli++++++')).toBe(false)
     })
 })
+
+describe("nom of planet", function(){
+    it("has only caps", function(){
+        expect(checkUniqueName("test")).toBe(false);
+    })
+})
