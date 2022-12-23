@@ -1,7 +1,7 @@
 module.exports.checkUniqueName = (uniqueName) => {
-  // regex to only accept "., "-" and " "
+  // regex to only accept "., "-", " " and caps
 
-  const regex = /[^\w .-]|_/g;
+  const regex = /[^\w .-]|_|[\W+a-z]/g;
   const found = uniqueName.match(regex);
   console.log(found);
   if (found === null || found.length === 0) return true;
