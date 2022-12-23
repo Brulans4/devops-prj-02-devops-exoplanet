@@ -3,19 +3,29 @@ const router = express.Router();
 
 const Exoplanet = require('../models/Exoplanet.js');
 
+const Utils = require('../utils/utils.js');
+
 /* GET exoplanets index. */
 router.get('/', (req, res, next) => {
   res.render('exoplanets/index', { exoplanetsTable: Exoplanet.list() });
 });
 
+/* GET exoplanets index. */
+router.get('/test', (req, res) => {
+  res.send({ data: 'bonjour' });
+});
+
 /* POST add exoplanet. */
 router.post('/add', (req, res, next) => {
-  console.log('POST ADD EXOPLANET');
-  Exoplanet.save({
-    uniqueName: req.body.uniqueNameExoplanet,
-    hClass: req.body.hClassExoplanet,
-    discoveryYear: req.body.discoveryYearExoplanet
-  });
+  console.log('POST ADD EXOPLANET' + req.body.uniqueNameExoplanet);
+  const ok = Utils.checkUniqueName(req.body.uniqueNameExoplanet);
+  if (ok) {
+    Exoplanet.save({
+      uniqueName: req.body.uniqueNameExoplanet,
+      hClass: req.body.hClassExoplanet,
+      discoveryYear: req.body.discoveryYearExoplanet
+    });
+  }
   res.redirect('/exoplanets');
 });
 
